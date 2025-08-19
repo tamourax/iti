@@ -70,7 +70,7 @@ class _screenState extends State<screen> {
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 111),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
