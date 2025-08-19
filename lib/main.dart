@@ -17,7 +17,7 @@ class screen extends StatefulWidget {
 
 class _screenState extends State<screen> {
   @override
-  int count = 0;
+  int count = 1;
 
   Widget build(BuildContext context) {
 
