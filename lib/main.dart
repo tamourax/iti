@@ -1,11 +1,7 @@
-
-
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    screen(), // Wrap your app
-  );
+  runApp(screen());
 }
 
 class screen extends StatefulWidget {
@@ -16,19 +12,17 @@ class screen extends StatefulWidget {
 }
 
 class _screenState extends State<screen> {
+  int count = 0;
+  int maxValue = 10;
+  int minValue = 0;
+  String statusText = "";
+
+  int get available => maxValue - count; // دا الرقم الباقي عشان محدش يتوه 
+
   @override
-  int count = 1;
-
   Widget build(BuildContext context) {
-
-
-
-
-
-    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
@@ -56,7 +50,12 @@ class _screenState extends State<screen> {
                         icon: Icon(Icons.settings, color: Colors.white),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            count = 0;
+                            statusText = "";
+                          });
+                        },
                         icon: Icon(Icons.refresh, color: Colors.white),
                       ),
                     ],
@@ -73,29 +72,32 @@ class _screenState extends State<screen> {
                   SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                     children: [
                       GestureDetector(
                         onTap: () {
-                         count--;
-                          print(count);
-                          setState((){
-                             
-
-                          });
-                       
+                          if (count > minValue) {
+                            setState(() {
+                              count--;
+                              statusText = "";
+                              if (count == minValue) {
+                                statusText = "Reached Minimum";
+                              }
+                            });
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white70, width: 2),
+                            border: Border.all(
+                              color: count > minValue ? Colors.white70 : Colors.grey,
+                              width: 2,
+                            ),
                           ),
-
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.remove,
-                              color: Colors.white,
+                              color: count > minValue ? Colors.white : Colors.grey,
                               size: 40,
                             ),
                           ),
@@ -104,7 +106,7 @@ class _screenState extends State<screen> {
                       Column(
                         children: [
                           Text(
-                            '10',
+                            '$available', 
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 18,
@@ -122,30 +124,46 @@ class _screenState extends State<screen> {
                           ),
                         ],
                       ),
-
                       GestureDetector(
                         onTap: () {
-                          count = count + 1;
-
-                          setState(() {});
+                          if (count < maxValue) {
+                            setState(() {
+                              count++;
+                              statusText = "";
+                              if (count == maxValue) {
+                                statusText = "Reached Maximum";
+                              }
+                            });
+                          }
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white70, width: 2),
+                            border: Border.all(
+                              color: count < maxValue ? Colors.white70 : Colors.grey,
+                              width: 2,
+                            ),
                           ),
-
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.add,
-                              color: Colors.white,
+                              color: count < maxValue ? Colors.white : Colors.grey,
                               size: 40,
                             ),
                           ),
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    statusText,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.redAccent,
+                    ),
                   ),
                 ],
               ),
