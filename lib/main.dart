@@ -77,7 +77,7 @@ class _screenState extends State<screen> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                         count--;
+                         count = count -2;
                           print(count);
                           setState((){
                              
