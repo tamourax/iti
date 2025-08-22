@@ -6,7 +6,7 @@ import 'secondscreen.dart';
 
 void main() {
   runApp(const MyApp());
- NewsServices().getGereralNews();
+
 }
 
 class MyApp extends StatelessWidget {
