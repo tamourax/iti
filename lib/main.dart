@@ -1,173 +1,179 @@
 import 'package:flutter/material.dart';
+import 'package:iti/dio/news_services.dart';
+import 'CustomCont.dart';
+import 'secondscreen.dart';
+
 
 void main() {
-  runApp(screen());
+  runApp(const MyApp());
+ NewsServices().getGereralNews();
 }
 
-class screen extends StatefulWidget {
-  const screen({super.key});
-
-  @override
-  State<screen> createState() => _screenState();
-}
-
-class _screenState extends State<screen> {
-  int count = 0;
-  int maxValue = 10;
-  int minValue = 0;
-  String statusText = "";
-
-  int get available => maxValue - count; // دا الرقم الباقي عشان محدش يتوه 
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF0F2027), Color(0xFF203A43), Color(0xFF2C5364)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+    return MaterialApp(debugShowCheckedModeBanner: false, home: hommee());
+  }
+}
+
+class hommee extends StatelessWidget {
+  List<String> imgs = [
+    "assets/images/download (5).jpg",
+    "assets/images/images (1).jpg",
+    "assets/images/WhatsApp Image 2025-08-20 at 23.08.24_26b425b3.jpg",
+    "assets/images/download (6).jpg",
+    "assets/images/download.jpg",
+    "assets/images/WhatsApp Image 2025-08-20 at 23.24.39_4fe217db.jpg",
+    "assets/images/WhatsApp Image 2025-08-20 at 22.59.41_bdc39161.jpg",
+    "assets/images/images (3).jpg",
+  ];
+  List<String> title = [
+    "General",
+    "Entertainment",
+    "Sports",
+    "Business",
+    "Technology",
+    "Health",
+    "Beauty",
+    "Documentry",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Title(
+          color: Colors.white,
+          child: Text(
+            "News App",
+            style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
           ),
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.info, color: Colors.white),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.settings, color: Colors.white),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            count = 0;
-                            statusText = "";
-                          });
-                        },
-                        icon: Icon(Icons.refresh, color: Colors.white),
-                      ),
-                    ],
+        ),
+        backgroundColor: const Color.fromARGB(226, 0, 128, 255),
+        leading: Icon(
+          Icons.notifications_outlined,
+          color: const Color.fromARGB(255, 255, 255, 255),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          child: Column(
+            children: [
+              Container(
+                height: 200,
+
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 5,
+                    childAspectRatio: 0.85,
                   ),
-                  SizedBox(height: 32),
-                  Text(
-                    '$count',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 200,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          if (count > minValue) {
-                            setState(() {
-                              count--;
-                              statusText = "";
-                              if (count == minValue) {
-                                statusText = "Reached Minimum";
-                              }
-                            });
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: count > minValue ? Colors.white70 : Colors.grey,
-                              width: 2,
+                  itemCount: imgs.length,
+                  physics: NeverScrollableScrollPhysics(),
+
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap:
+                          () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SecondScreen(),
                             ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.remove,
-                              color: count > minValue ? Colors.white : Colors.grey,
-                              size: 40,
+                      child: Container(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.zero,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(90),
+                              ),
+                              child: Image.asset(
+                                imgs[index],
+                                width: 80,
+                                height: 60,
+                              ),
                             ),
-                          ),
+                            const SizedBox(height: 8),
+
+                            Text(
+                              title[index],
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w800,
+                                color: Color.fromARGB(255, 22, 22, 22),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Column(
-                        children: [
-                          Text(
-                            '$available', 
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
-                              color: Colors.white,
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'AVAILABLE',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 12,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          if (count < maxValue) {
-                            setState(() {
-                              count++;
-                              statusText = "";
-                              if (count == maxValue) {
-                                statusText = "Reached Maximum";
-                              }
-                            });
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: count < maxValue ? Colors.white70 : Colors.grey,
-                              width: 2,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.add,
-                              color: count < maxValue ? Colors.white : Colors.grey,
-                              size: 40,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    statusText,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.redAccent,
-                    ),
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
-            ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                width: double.infinity,
+                height: 2,
+                color: const Color.fromARGB(255, 168, 168, 168),
+              ),
+
+              Container(
+                padding: EdgeInsets.only(top: 5),
+                child: Column(
+                  spacing: 8,
+                  children: [
+                    CustomCont(
+                      title: "Stock market today",
+                      paragraph:
+                          "important news important news important news important news ",
+                      imageLink: "assets/images/download (1).jpg",
+                    ),
+                    CustomCont(
+                      title: "Bad News!",
+                      paragraph:
+                          "Ay 7aga Ay 7aga Ay 7aga Ay 7aga Ay 7aga Ay 7aga ay 7aga",
+                      imageLink: "assets/images/images (2).jpg",
+                    ),
+                    CustomCont(
+                      title: "Chocolate Cake ingredients",
+                      paragraph: "flour, eggs, milk, butter, chocolate bar",
+                      imageLink: "assets/images/images (2).webp",
+                    ),
+                    CustomCont(
+                      title: "IMPORTANT!",
+                      paragraph:
+                          "Ay 7aga tani Ay 7aga Ay tani 7aga Ay 7aga Ay 7aga ",
+                      imageLink: "assets/images/download.jpg",
+                    ),
+                    CustomCont(
+                      title: "New technologies in 2025 ",
+                      paragraph: "tech tech tech tech tech tech tech tech ",
+                      imageLink: "assets/images/download (2).jpg",
+                    ),
+
+                    CustomCont(
+                      title: "sports news",
+                      paragraph:
+                          "important news important news important news important news ",
+                      imageLink:
+                          "assets/images/WhatsApp Image 2025-08-20 at 23.06.44_5c6cfb2e.jpg",
+                    ),
+                    CustomCont(
+                      title: "Bad News!",
+                      paragraph:
+                          "Ay 7aga Ay 7aga Ay 7aga Ay 7aga Ay 7aga Ay 7aga ",
+                      imageLink: "assets/images/images (3).jpg",
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
