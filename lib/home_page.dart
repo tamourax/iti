@@ -54,8 +54,8 @@ class _homeState extends State<home> {
               ),
               Text("Gerenal News"   , style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
               SizedBox(
-                height: 400,)
-            ]
+                height: 400,
+      
                 child: ListView.builder(
                   itemCount: newsList.length,
                   itemBuilder: (context, index) {
@@ -66,7 +66,7 @@ class _homeState extends State<home> {
                       imageLink:
                           newsList[index].image ??
                           "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
-                    );
+                    );                  
                   },
                 ),
               ),
