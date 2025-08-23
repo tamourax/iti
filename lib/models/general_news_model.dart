@@ -1,10 +1,10 @@
-class NewsModel {
+class GeneralNewsModel {
   String? title;
   String? description;
 
   String? image;
 
-  NewsModel({
+  GeneralNewsModel({
     required this.title,
     required this.description,
     required this.image,

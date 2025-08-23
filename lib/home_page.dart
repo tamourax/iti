@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iti/CustomCont.dart';
 import 'package:iti/custom_gridveiw.dart';
-import 'package:iti/models/new_model.dart';
+import 'package:iti/models/general_news_model.dart';
 
 import 'package:iti/services/news_services.dart';
 
@@ -17,7 +17,7 @@ class _homeState extends State<home> {
     super.initState();
   }
 
-  List<NewsModel> newsList = [];
+  List<GeneralNewsModel> newsList = [];
   Future<void> getData() async {
     newsList = await NewsServices().getGereralNews();
     setState(() {});
@@ -46,16 +46,26 @@ class _homeState extends State<home> {
           child: Column(
             children: [
               CustomGridveiw(),
+
               Container(
                 padding: EdgeInsets.symmetric(vertical: 15),
                 width: double.infinity,
                 height: 2,
                 color: const Color.fromARGB(255, 168, 168, 168),
               ),
-              Text("Gerenal News"   , style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+              Text(
+                "Gerenal News",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 15),
+                width: double.infinity,
+                height: 2,
+                color: const Color.fromARGB(255, 168, 168, 168),
+              ),
               SizedBox(
                 height: 400,
-      
+
                 child: ListView.builder(
                   itemCount: newsList.length,
                   itemBuilder: (context, index) {
@@ -66,7 +76,7 @@ class _homeState extends State<home> {
                       imageLink:
                           newsList[index].image ??
                           "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
-                    );                  
+                    );
                   },
                 ),
               ),

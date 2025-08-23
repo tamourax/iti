@@ -9,10 +9,11 @@ class CustomCont extends StatelessWidget {
   final String paragraph;
   final String title;
   final String imageLink;
-@override
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Row(
+        spacing: 10,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
@@ -20,21 +21,21 @@ class CustomCont extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                   title,
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900)
-                  
-
-
-
-
-                  
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
                 ),
-                Text(paragraph,maxLines: 2,
-  overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 15.8,fontWeight: FontWeight.w300),),
+                Text(
+                  paragraph,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w300),
+                ),
               ],
             ),
           ),
-          Column(children: [Image.network(imageLink, width: 160)]),
+          Column(children: [Image.network(imageLink, width: 130)]),
         ],
       ),
     );
