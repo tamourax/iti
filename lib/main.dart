@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iti/dio/news_services.dart';
+import 'package:iti/services/news_services.dart';
 import 'CustomCont.dart';
 import 'secondscreen.dart';
 
@@ -135,7 +135,7 @@ class hommee extends StatelessWidget {
                       imageLink: "assets/images/download (1).jpg",
                     ),
                     CustomCont(
-                      title: "Bad News!",
+                      title: "good News!",
                       paragraph:
                           "Ay 7aga Ay 7aga Ay 7aga Ay 7aga Ay 7aga Ay 7aga ay 7aga",
                       imageLink: "assets/images/images (2).jpg",
