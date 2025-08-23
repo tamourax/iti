@@ -4,7 +4,7 @@ import 'package:iti/models/new_model.dart';
 class NewsServices {
   final dio = Dio();
 
-  void getGereralNews() async {
+  Future<List<NewsModel>> getGereralNews() async {
     Response response = await dio.get(
       'https://newsapi.org/v2/everything?q=general&apiKey=e4ea152c161c4c91a9faad351c15e97c',
     );
@@ -23,5 +23,7 @@ class NewsServices {
       newsList.add(newsModel);
     }
     print(newsList);
+    return newsList;
   }
+  
 }

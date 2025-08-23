@@ -1,8 +1,8 @@
 class NewsModel {
-  String title;
-  String description;
+  String? title;
+  String? description;
 
-  String image;
+  String? image;
 
   NewsModel({
     required this.title,
