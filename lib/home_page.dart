@@ -70,23 +70,26 @@ class _homeState extends State<home> {
               SizedBox(
                 height: 400,
 
-                child:  Skeletonizer(
-                  enabled: isLoading,
-                  child:  ListView.builder(
-                  itemCount: newsList.length,
-                  itemBuilder: (context, index) {
-                    return  CustomCont(
-                          title: newsList[index].title ?? "NO Title Found",
-                          paragraph:
-                              newsList[index].description ??
-                              "NO Description Found",
-                          imageLink:
-                              newsList[index].image ??
-                              "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
-                        );
-                  },
-                ),)    
-              ),
+                child:  FutureBuilder(future: NewsServices().getGereralNews(), builder: (context, snapshot){
+                  return    Skeletonizer(
+                  enabled: true,
+                  child: ListView.builder(
+                    itemCount: newsList.length,
+                    itemBuilder: (context, index) {
+                      return CustomCont(
+                        title: newsList[index].title ?? "NO Title Found",
+                        paragraph:
+                            newsList[index].description ??
+                            "NO Description Found",
+                        imageLink:
+                            newsList[index].image ??
+                            "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
+                      );
+                    },
+                  ),);
+               
+                    
+                }    )),
             ],
           ),
         ),
