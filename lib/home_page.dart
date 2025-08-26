@@ -6,26 +6,9 @@ import 'package:iti/models/general_news_model.dart';
 import 'package:iti/services/news_services.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class home extends StatefulWidget {
-  @override
-  State<home> createState() => _homeState();
-}
-
-class _homeState extends State<home> {
-  @override
-  void initState() {
-    getData();
-    super.initState();
-  }
-
+class home extends StatelessWidget {
   List<GeneralNewsModel> newsList = [];
   bool isLoading = true;
-
-  Future<void> getData() async {
-    newsList = await NewsServices().getGereralNews();
-    isLoading = false;
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,26 +53,31 @@ class _homeState extends State<home> {
               SizedBox(
                 height: 400,
 
-                child:  FutureBuilder(future: NewsServices().getGereralNews(), builder: (context, snapshot){
-                  return    Skeletonizer(
-                  enabled: true,
-                  child: ListView.builder(
-                    itemCount: newsList.length,
-                    itemBuilder: (context, index) {
-                      return CustomCont(
-                        title: newsList[index].title ?? "NO Title Found",
-                        paragraph:
-                            newsList[index].description ??
-                            "NO Description Found",
-                        imageLink:
-                            newsList[index].image ??
-                            "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
-                      );
-                    },
-                  ),);
-               
-                    
-                }    )),
+                child: FutureBuilder(
+                  future: NewsServices().getGereralNews(),
+                  builder: (context, snapshot) {
+                    newsList = snapshot.data ?? [];
+                    snapshot.hasData ? isLoading = false : isLoading = true;
+                    return Skeletonizer(
+                      enabled: isLoading,
+                      child: ListView.builder(
+                        itemCount: newsList.length,
+                        itemBuilder: (context, index) {
+                          return CustomCont(
+                            title: newsList[index].title ?? "NO Title Found",
+                            paragraph:
+                                newsList[index].description ??
+                                "NO Description Found",
+                            imageLink:
+                                newsList[index].image ??
+                                "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),
