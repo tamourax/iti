@@ -57,24 +57,28 @@ class home extends StatelessWidget {
                   future: NewsServices().getGereralNews(),
                   builder: (context, snapshot) {
                     newsList = snapshot.data ?? [];
+
                     snapshot.hasData ? isLoading = false : isLoading = true;
-                    return Skeletonizer(
-                      enabled: isLoading,
-                      child: ListView.builder(
-                        itemCount: newsList.length,
-                        itemBuilder: (context, index) {
-                          return CustomCont(
-                            title: newsList[index].title ?? "NO Title Found",
-                            paragraph:
-                                newsList[index].description ??
-                                "NO Description Found",
-                            imageLink:
-                                newsList[index].image ??
-                                "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
-                          );
-                        },
-                      ),
-                    );
+                    return snapshot.hasError
+                        ? Center(child: Text("There is an error"))
+                        : Skeletonizer(
+                          enabled: isLoading,
+                          child: ListView.builder(
+                            itemCount: newsList.length,
+                            itemBuilder: (context, index) {
+                              return CustomCont(
+                                title:
+                                    newsList[index].title ?? "NO Title Found",
+                                paragraph:
+                                    newsList[index].description ??
+                                    "NO Description Found",
+                                imageLink:
+                                    newsList[index].image ??
+                                    "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
+                              );
+                            },
+                          ),
+                        );
                   },
                 ),
               ),
