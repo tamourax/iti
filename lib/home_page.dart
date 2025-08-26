@@ -4,6 +4,7 @@ import 'package:iti/custom_gridveiw.dart';
 import 'package:iti/models/general_news_model.dart';
 
 import 'package:iti/services/news_services.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class home extends StatefulWidget {
   @override
@@ -69,7 +70,9 @@ class _homeState extends State<home> {
               SizedBox(
                 height: 400,
 
-                child: isLoading ? Center(child: CircularProgressIndicator()) : ListView.builder(
+                child:  Skeletonizer(
+                  enabled: isLoading,
+                  child:  ListView.builder(
                   itemCount: newsList.length,
                   itemBuilder: (context, index) {
                     return  CustomCont(
@@ -82,7 +85,7 @@ class _homeState extends State<home> {
                               "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
                         );
                   },
-                ),
+                ),)    
               ),
             ],
           ),
