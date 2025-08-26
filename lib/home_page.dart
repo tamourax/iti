@@ -18,8 +18,11 @@ class _homeState extends State<home> {
   }
 
   List<GeneralNewsModel> newsList = [];
+  bool isLoading = true;
+
   Future<void> getData() async {
     newsList = await NewsServices().getGereralNews();
+    isLoading = false;
     setState(() {});
   }
 
@@ -66,17 +69,18 @@ class _homeState extends State<home> {
               SizedBox(
                 height: 400,
 
-                child: ListView.builder(
+                child: isLoading ? Center(child: CircularProgressIndicator()) : ListView.builder(
                   itemCount: newsList.length,
                   itemBuilder: (context, index) {
-                    return CustomCont(
-                      title: newsList[index].title ?? "NO Title Found",
-                      paragraph:
-                          newsList[index].description ?? "NO Description Found",
-                      imageLink:
-                          newsList[index].image ??
-                          "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
-                    );
+                    return  CustomCont(
+                          title: newsList[index].title ?? "NO Title Found",
+                          paragraph:
+                              newsList[index].description ??
+                              "NO Description Found",
+                          imageLink:
+                              newsList[index].image ??
+                              "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
+                        );
                   },
                 ),
               ),

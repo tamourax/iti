@@ -23,7 +23,7 @@ class NewsServices {
 
       newsList.add(newsModel);
     }
-    print(newsList);
+
     return newsList;
   }
 }
