@@ -15,11 +15,7 @@ class NewsServices {
         []; // list of news ui obj (ele ahna 3izenha)
 
     for (var article in articles) {
-      GeneralNewsModel newsModel = GeneralNewsModel(
-        title: article['title'],
-        description: article['description'],
-        image: article['urlToImage'],
-      );
+      GeneralNewsModel newsModel = GeneralNewsModel.fromJson(article);
 
       newsList.add(newsModel);
     }

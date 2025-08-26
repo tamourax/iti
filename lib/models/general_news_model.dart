@@ -1,12 +1,19 @@
 class GeneralNewsModel {
-  String? title;
-  String? description;
+  final String? title;
+  final String? description;
 
-  String? image;
+  final String? image;
 
   GeneralNewsModel({
     required this.title,
     required this.description,
     required this.image,
   });
+  factory GeneralNewsModel.fromJson(Map<String, dynamic> json) {
+    return GeneralNewsModel(
+      title: json['title'],
+      description: json['description'],
+      image: json['urlToImage'],
+    );
+  }
 }
