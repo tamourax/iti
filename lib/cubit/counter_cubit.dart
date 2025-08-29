@@ -11,12 +11,12 @@ class CounterCubit extends Cubit<CounterState> {
     counter++;  
   emit(CounterIncrement());
 
-  }
-  void decrement() 
-  {
-    counter--;
-    emit(CounterDecrement());
-  }
+}
+void decrement() 
+{
+  counter--;
+  emit(CounterDecrement());
+}
   void reset() {
     counter = 0;
     emit(CounterReset());

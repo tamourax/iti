@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_bloc: ^9.1.1
   font_awesome_flutter: ^10.9.0
   device_preview: ^1.2.0
   # The following adds the Cupertino Icons font to your application.
@@ -37,7 +38,7 @@ dependencies:
     sdk: flutter
 
 dev_dependencies:
-  flutter_bloc: ^9.1.1
+  
   flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
