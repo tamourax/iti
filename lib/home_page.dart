@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iti/CustomCont.dart';
+import 'package:iti/cubit/news_cubit_cubit.dart';
 import 'package:iti/custom_gridveiw.dart';
 import 'package:iti/models/general_news_model.dart';
-
 import 'package:iti/services/news_services.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
-class home extends StatelessWidget {
+class home extends StatefulWidget {
+  @override
+  State<home> createState() => _homeState();
+}
+
+class _homeState extends State<home> {
+  @override
+  void initState() {
+    getNews();
+  
+    context.read<NewsCubit>().getNews();
+    super.initState();
+  }
+
+  Future<void> getNews() async {
+    await NewsServices().getGereralNews();
+  }
+
+  // List<GeneralNewsModel> news = blocprovider.of<NewsCubit>(context).newsList;
   List<GeneralNewsModel> newsList = [];
+
   bool isLoading = true;
 
   @override
@@ -53,32 +72,27 @@ class home extends StatelessWidget {
               SizedBox(
                 height: 400,
 
-                child: FutureBuilder(
-                  future: NewsServices().getGereralNews(),
-                  builder: (context, snapshot) {
-                    newsList = snapshot.data ?? [];
-
-                    snapshot.hasData ? isLoading = false : isLoading = true;
-                    return snapshot.hasError
-                        ? Center(child: Text("There is an error"))
-                        : Skeletonizer(
-                          enabled: isLoading,
-                          child: ListView.builder(
-                            itemCount: newsList.length,
-                            itemBuilder: (context, index) {
-                              return CustomCont(
-                                title:
-                                    newsList[index].title ?? "NO Title Found",
-                                paragraph:
-                                    newsList[index].description ??
-                                    "NO Description Found",
-                                imageLink:
-                                    newsList[index].image ??
-                                    "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
-                              );
-                            },
-                          ),
-                        );
+                child: BlocBuilder<NewsCubit, NewsCubitState>(
+                  builder: (context, state) {
+                    return state is NewsCubitLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : state is NewsCubitSuccess
+                        ? ListView.builder(
+                          itemCount: state.newsList.length,
+                          itemBuilder: (context, index) {
+                            newsList = state.newsList;
+                            return CustomCont(
+                              title: newsList[index].title ?? "NO Title Found",
+                              paragraph:
+                                  newsList[index].description ??
+                                  "NO Description Found",
+                              imageLink:
+                                  newsList[index].image ??
+                                  "https://support.heberjahiz.com/hc/article_attachments/18203330538258",
+                            );
+                          },
+                        )
+                        : Center(child: Text("Error"));
                   },
                 ),
               ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:iti/models/general_news_model.dart';
 
@@ -19,7 +21,9 @@ class NewsServices {
 
       newsList.add(newsModel);
     }
+    log(newsList.toString());
 
     return newsList;
+
   }
 }

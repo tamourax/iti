@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iti/cubit/news_cubit_cubit.dart';
 import 'package:iti/home_page.dart';
 import 'package:iti/services/news_services.dart';
 import 'CustomCont.dart';
@@ -6,7 +8,7 @@ import 'secondscreen.dart';
 
 void main() {
   runApp(const MyApp());
-  NewsServices().getGereralNews();
+  // NewsServices().getGereralNews();
 }
 
 class MyApp extends StatelessWidget {
@@ -14,6 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: home());
+    return BlocProvider(
+      create: (context) => NewsCubit(),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: home()),
+    );
   }
 }
